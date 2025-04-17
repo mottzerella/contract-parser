@@ -5,11 +5,7 @@ import os
 import json
 from datetime import datetime
 import re
-from dotenv import load_dotenv
 import io # Import io for handling uploaded file bytes
-
-# Load environment variables from .env file
-load_dotenv()
 
 # --- Configuration ---
 # PDF_PATH is removed, we use file uploader now
@@ -22,14 +18,23 @@ MODEL_NAME = "gemini-2.5-pro-exp-03-25" # Using latest available model, adjust i
 # --- Helper Functions ---
 
 def get_api_key():
-    """Retrieves the Gemini API key from environment variables."""
+    """Retrieves the Gemini API key from Streamlit secrets."""
     # Use session state to cache the API key check result
     if 'api_key' not in st.session_state:
-        api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key:
-            st.error("GEMINI_API_KEY environment variable not set. Please set it in your .env file or environment.")
+        try:
+            api_key = st.secrets["GEMINI_API_KEY"]
+            if not api_key: # Check if the key exists but is empty
+                 st.error("GEMINI_API_KEY found in secrets but it is empty.")
+                 st.stop()
+            st.session_state.api_key = api_key
+        except KeyError:
+            st.error("GEMINI_API_KEY not found in Streamlit secrets (.streamlit/secrets.toml).")
+            st.info("Please ensure the file exists and the key is defined, e.g., GEMINI_API_KEY = \"your_key_here\"")
             st.stop()
-        st.session_state.api_key = api_key
+        except Exception as e:
+             st.error(f"An error occurred reading secrets: {e}")
+             st.stop()
+
     return st.session_state.api_key
 
 def read_pdf(file_input):
