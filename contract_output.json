@@ -1,0 +1,23 @@
+{
+  "Partner Name": "[Subscriber]",
+  "Effective date": null,
+  "Term length (days)": 365,
+  "Termination date": null,
+  "Active Lore User Pricing/month": null,
+  "Eligible users": 0,
+  "Lore users": 0,
+  "Total Monthly Active Users": 0,
+  "Community Access": true,
+  "Data deletion policy (lorebot)": false,
+  "Timeframe (hours)": null,
+  "Dependents allowed": true,
+  "Eligibility": "only_insured",
+  "Reconciliation Start Date": "After 12 months of Phase 2",
+  "Reconciliation entity and cost": "Entity: The Parties or a third party; Cost: To be specified in a separate reconciliation form",
+  "Population of eligible users": "Employees and Dependents",
+  "Limit on number of users": 0,
+  "Data sharing agreement or business associate agreement": "Business associate agreement",
+  "Performance Reports Frequency": "monthly",
+  "Users permitted to convert Lore points to money": true,
+  "Trial period": 90
+}

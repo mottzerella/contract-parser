@@ -1,4 +1,5 @@
 streamlit
 google-generativeai
-PyPDF2 
+PyPDF2
+toml # Added for reading secrets.toml in notebook
 # python-dotenv removed as we now use st.secrets 

@@ -110,11 +110,6 @@ JSON Structure and Instructions:
     "type": "MM/DD/YYYY",
     "value": "Find the date in the contract (e.g., 'Month DD, YYYY', 'MM/DD/YYYY', etc.) and convert it to MM/DD/YYYY format. Use null if not found."
   }},
-  "Reconciliation start date": {{
-    "description": "The start date for reconciling Lore's pricing model.",
-    "type": "MM/DD/YYYY",
-    "value": "First, look for an explicitly stated Reconciliation Start Date and convert it to MM/DD/YYYY format. If not found, perform the following calculation: 1. Find the Effective Date. 2. Add 12 months to the Effective Date (end of Benchmark Period). 3. Add 4 months to the result from step 2. 4. Format this final calculated date as MM/DD/YYYY. If the Effective Date cannot be found for calculation, return null."
-  }},
   "Active Lore User Pricing/month": {{
     "description": "The price Lore is charging per user, per month",
     "type": "$ Integer",
@@ -149,27 +144,6 @@ JSON Structure and Instructions:
     "description": "Timeframe in hours for Lore to delete personal data per policy",
     "type": "Integer",
     "value": "Extract integer, null if no policy or not specified"
-  }},
-  "Data covered by HIPAA": {{
-    "description": "Contingent upon whether there is a business associate agreement",
-    "type": "Boolean",
-    "value": "Determine True/False based on BAA presence, null if unclear"
-  }},
-  "Business Associate Agreement": {{
-    "description": "Required by health plan/self-funded employer if covered entity under HIPAA",
-    "type": "Boolean",
-    "value": "Extract True/False, null if not mentioned"
-  }},
-  "Data Sharing Agreement": {{
-    "description": "An agreement to share HIPAA data",
-    "type": "Boolean",
-    "value": "Extract True/False, null if not mentioned"
-  }},
-  "Reconciliation Method": {{
-    "description": "Method for reconciling payments (monthly_Fee or reconciliation_statement)",
-    "type": "String",
-    "accepted_values": ["monthly_Fee", "reconciliation_statement"],
-    "value": "Extract value or null"
   }},
   "Dependents allowed": {{
     "description": "Are dependents included in the list of eligible users?",
@@ -349,7 +323,6 @@ if st.session_state.edited_data:
         "Effective date": {"type": "date"},
         "Term length (days)": {"type": "number", "min": 0},
         "Termination date": {"type": "date"},
-        "Reconciliation start date": {"type": "date"},
         "Active Lore User Pricing/month": {"type": "number", "min": 0, "format": "%d"}, # Removed '$' from format
         "Eligible users": {"type": "number", "min": 0, "step": 1},
         "Lore users": {"type": "number", "min": 0, "step": 1},
@@ -357,10 +330,6 @@ if st.session_state.edited_data:
         "Community Access": {"type": "boolean"},
         "Data deletion policy (lorebot)": {"type": "boolean"},
         "Timeframe (hours)": {"type": "number", "min": 0, "step": 1},
-        "Data covered by HIPAA": {"type": "boolean"},
-        "Business Associate Agreement": {"type": "boolean"},
-        "Data Sharing Agreement": {"type": "boolean"},
-        "Reconciliation Method": {"type": "select", "options": ["monthly_Fee", "reconciliation_statement", None]},
         "Dependents allowed": {"type": "boolean"},
         "Eligibility": {"type": "select", "options": ["all", "only_insured", None]}
     }
